@@ -36,10 +36,26 @@ namespace BusinessLogic.Services
             var result = new OperationResult<bool>();
             try
             {
-                _customerRepo.Add(customer);
-                var saveResult = _context.SaveChanges();
-                result.Data = true;
-                result.Status = eOperationStatus.Success;
+                if (!CountryValidator.Validate(customer.Country))
+                {
+                    result.Data = false;
+                    result.Status = eOperationStatus.GeneralError;
+                    result.ExceptionMessage = "Country code does not exists";
+                   
+                }
+                else if (_customerRepo.Get(customer.CustomerId) != null)
+                {
+                    result.Data = false;
+                    result.Status = eOperationStatus.GeneralError;
+                    result.ExceptionMessage = $"Customer: {customer.CustomerId} already exists";
+                }
+                else
+                {
+                    _customerRepo.Add(customer);
+                    var saveResult = _context.SaveChanges();
+                    result.Data = true;
+                    result.Status = eOperationStatus.Success;
+                }
             }
             catch (Exception ex)
             {
@@ -56,6 +72,7 @@ namespace BusinessLogic.Services
             var result = new OperationResult<bool>();
             try
             {
+                CountryValidator.Validate(customer.Country);
                 var toUpdate = _customerRepo.Get(customer.CustomerId);
                 toUpdate.Addresses = customer.Addresses;
                 toUpdate.City = customer.City;

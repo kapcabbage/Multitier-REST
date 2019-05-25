@@ -21,7 +21,7 @@ namespace WebApi.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Customers>> Get()
+        public ActionResult Get()
         {
             var serviceResult = _service.GetAllCustomers();
             if (serviceResult.Status == eOperationStatus.Success)
@@ -42,8 +42,15 @@ namespace WebApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] Customers value)
         {
+            var result = _service.AddCustomer(value);
+            if (result.Status == eOperationStatus.Success)
+            {
+                return Ok(new {Success = result.Data});
+            }
+
+            return BadRequest(new {Message = result.ExceptionMessage});
         }
 
         // PUT api/values/5
