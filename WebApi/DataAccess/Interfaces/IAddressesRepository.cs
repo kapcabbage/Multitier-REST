@@ -7,5 +7,6 @@ namespace DataAccess.Interfaces
 {
     public interface  IAddressesRepository : IRepository<Addresses>
     {
+        IEnumerable<Addresses> GetByCustomer(string id);
     }
 }

@@ -73,12 +73,6 @@ namespace DataAccess.POCO
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Address_CustomerId");
             });
 
             modelBuilder.Entity<Customers>(entity =>

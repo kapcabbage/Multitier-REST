@@ -35,7 +35,7 @@ namespace WebApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(string id)
+        public ActionResult Get(string id)
         {
             var serviceResult = _service.GetCustomer(id);
             if (serviceResult.Status == eOperationStatus.Success)
@@ -51,7 +51,6 @@ namespace WebApi.Controllers
             return BadRequest(serviceResult);
         }
 
-        // POST api/values
         [HttpPost]
         public ActionResult Post([FromBody] Customers value)
         {
@@ -64,7 +63,6 @@ namespace WebApi.Controllers
             return BadRequest(new {Message = result.ExceptionMessage});
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
         public ActionResult Put(string id, [FromBody] Customers value)
         {
@@ -83,7 +81,6 @@ namespace WebApi.Controllers
             return BadRequest(new { Message = result.ExceptionMessage });
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -98,6 +95,7 @@ namespace WebApi.Controllers
             }
             return BadRequest(new { Message = result.ExceptionMessage });
         }
+
 
         #endregion
     }

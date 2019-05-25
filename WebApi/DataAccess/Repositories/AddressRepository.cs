@@ -23,12 +23,17 @@ namespace DataAccess.Repositories
 
         public void Add(Addresses entity)
         {
-            throw new NotImplementedException();
+            _context.Addresses.Add(entity);
         }
 
         public void Delete(Addresses entity)
         {
             _context.Addresses.Remove(entity);
+        }
+
+        public IEnumerable<Addresses> GetByCustomer(string id)
+        {
+            return _context.Addresses.Where(x => x.CustomerId == id).ToList();
         }
 
         #endregion
