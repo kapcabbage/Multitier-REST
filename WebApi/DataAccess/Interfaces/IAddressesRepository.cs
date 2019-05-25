@@ -5,8 +5,7 @@ using DataAccess.POCO;
 
 namespace DataAccess.Interfaces
 {
-    public interface ICustomerRepository : IRepository<Customers>
+    public interface  IAddressesRepository : IRepository<Addresses>
     {
-            IEnumerable<Customers> GetAll();
     }
 }

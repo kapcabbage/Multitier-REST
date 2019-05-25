@@ -37,6 +37,11 @@ namespace DataAccess.POCO
                 entity.HasKey(e => e.AddressId)
                     .HasName("PK_AddressId");
 
+                entity.Property(e => e.AddressId)
+                      .HasMaxLength(5)
+                      .IsUnicode(false)
+                      .ValueGeneratedNever();
+
                 entity.Property(e => e.AddressType)
                     .IsRequired()
                     .HasMaxLength(1)

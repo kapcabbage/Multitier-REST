@@ -7,29 +7,28 @@ using DataAccess.POCO;
 
 namespace DataAccess.Repositories
 {
-    public class CustomerRepository : ICustomerRepository
+    public class AddressRepository : IAddressesRepository
     {
         protected readonly ICustomersContext _context;
-        public CustomerRepository(ICustomersContext context)
+        public AddressRepository(ICustomersContext context)
         {
             _context = context;
         }
+        #region Implementation of IRepository<Addresses>
 
-        #region Implementation of ICustomerRepository
-
-        public IEnumerable<Customers> GetAll()
+        public Addresses Get(string id)
         {
-            return _context.Customers.ToList();
+            return _context.Addresses.FirstOrDefault(x => x.AddressId == id);
         }
 
-        public Customers Get(string id)
+        public void Add(Addresses entity)
         {
-            return _context.Customers.FirstOrDefault(x => x.CustomerId == id);
+            throw new NotImplementedException();
         }
 
-        public void Add(Customers entity)
+        public void Update(Addresses entity)
         {
-            _context.Customers.Add(entity);
+            throw new NotImplementedException();
         }
 
         public void Delete(string id)

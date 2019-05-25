@@ -5,7 +5,7 @@ namespace DataAccess.POCO
 {
     public partial class Addresses
     {
-        public int AddressId { get; set; }
+        public string AddressId { get; set; }
         public string CustomerId { get; set; }
         public string AddressType { get; set; }
         public string Name { get; set; }
