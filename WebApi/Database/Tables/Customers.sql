@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Customers]
+(
+	[CustomerId] VARCHAR(5) NOT NULL,
+	[Name] NVARCHAR(100) NOT NULL,
+	[Street] NVARCHAR(100) NOT NULL,
+	[Zip] NVARCHAR(20) NOT NULL,
+	[City] NVARCHAR (100) NOT NULL,
+	[Country] VARCHAR(2) NOT NULL,
+
+	CONSTRAINT [PK_CustomerId] PRIMARY KEY ([CustomerId])
+)
