@@ -32,9 +32,9 @@ namespace DataAccess.Repositories
             _context.Customers.Add(entity);
         }
 
-        public void Delete(string id)
+        public void Delete(Customers entity)
         {
-            throw new NotImplementedException();
+            _context.Customers.Remove(entity);
         }
 
         #endregion

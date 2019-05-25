@@ -8,6 +8,6 @@ namespace DataAccess.Interfaces
     {
         TEntity Get(string id);
         void Add(TEntity entity);
-        void Delete(string id);
+        void Delete(TEntity entity);
     }
 }

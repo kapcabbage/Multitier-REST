@@ -35,9 +35,20 @@ namespace WebApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<string> Get(string id)
         {
-            return "value";
+            var serviceResult = _service.GetCustomer(id);
+            if (serviceResult.Status == eOperationStatus.Success)
+            {
+                return Ok(serviceResult);
+            }
+
+            if (serviceResult.Status == eOperationStatus.NotFound)
+            {
+                return NotFound();
+            }
+
+            return BadRequest(serviceResult);
         }
 
         // POST api/values
@@ -55,14 +66,37 @@ namespace WebApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(string id, [FromBody] Customers value)
         {
+            value.CustomerId = id;
+            var result = _service.UpdateCustomer(value);
+            if (result.Status == eOperationStatus.Success)
+            {
+                return Ok(new { Success = result.Data });
+            }
+
+            if (result.Status == eOperationStatus.NotFound)
+            {
+                return NotFound();
+            }
+
+            return BadRequest(new { Message = result.ExceptionMessage });
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(string id)
         {
+            var result = _service.DeleteCustomer(id);
+            if (result.Status == eOperationStatus.Success)
+            {
+                return Ok(new { Success = result.Data });
+            }
+            if (result.Status == eOperationStatus.NotFound)
+            {
+                return NotFound();
+            }
+            return BadRequest(new { Message = result.ExceptionMessage });
         }
 
         #endregion

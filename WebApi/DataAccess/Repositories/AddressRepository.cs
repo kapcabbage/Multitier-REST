@@ -26,14 +26,9 @@ namespace DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(Addresses entity)
+        public void Delete(Addresses entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(string id)
-        {
-            throw new NotImplementedException();
+            _context.Addresses.Remove(entity);
         }
 
         #endregion
