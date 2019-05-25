@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogic.Interfaces;
+using BusinessLogic.Services;
+using DataAccess.Interfaces;
 using DataAccess.POCO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +33,8 @@ namespace WebApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<CustomersContext>(options =>
                                                        options.UseSqlServer(Configuration.GetConnectionString("CustomersDatabase")));
+            services.AddTransient<ICustomersContext, CustomersContext>();
+            services.AddTransient<ICustomersService, CustomersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

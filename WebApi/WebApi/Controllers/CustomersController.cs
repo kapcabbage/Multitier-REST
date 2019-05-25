@@ -1,19 +1,36 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using BusinessLogic.Interfaces;
+using DataAccess.Common;
+using DataAccess.POCO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class CustomersController : ControllerBase
     {
+        private readonly ICustomersService _service;
+
+        public CustomersController(ICustomersService service)
+        {
+            _service = service;
+        }
         #region Methods
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Customers>> Get()
         {
-            return new[] {"value1", "value2"};
+            var serviceResult = _service.GetAllCustomers();
+            if (serviceResult.Status == eOperationStatus.Success)
+            {
+                return Ok(serviceResult);
+            }
+
+            return NotFound();
+
         }
 
         // GET api/values/5
